@@ -94,6 +94,11 @@ const Quiz = () => {
             : (
                 <div>
                     <h1>Correction</h1>
+                    <Question
+                questionData={questions[0]}
+                onAnswerSelected={onAnswerSelected}
+                answerData={{rightAnswer:'stringify()', wrongAnswer:'parse()'}}
+                />
                 </div>
             )}
 

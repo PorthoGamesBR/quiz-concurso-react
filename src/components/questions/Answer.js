@@ -1,15 +1,15 @@
 import styles from "./Answer.module.css"
 
-function Answer({selected, answer, onSelected, index}) {
+function Answer({customStyle, answer, onSelected, index, selectable}) {
 
     return (
         <li
-        onClick={() => onSelected(answer, index)}
+        onClick={selectable ? () => {return false;} : () => onSelected(answer, index)}
         key={answer}
-        className={ `
-        ${styles.answer_button} 
-        ${selected ? styles.selected_answer : null}`            
-        }>
+        className={`
+        ${styles.answer_button} ${styles[customStyle]}            
+        `}
+        >
             {answer}
         </li>
     )
