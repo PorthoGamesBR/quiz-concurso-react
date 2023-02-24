@@ -12,8 +12,9 @@
 }
 
 .selected_answer {
-    background: #ffd6ff;
-    border: 1px solid #800080;
+    background: #3b3b3b;
+    border: 1px solid #000000;
+    color: #efeded;
 }
 
 .right_answer {

@@ -102,11 +102,13 @@ const Quiz = () => {
                 <div>
                     <h1>Correction</h1>
                     {questions.map((question, index) => (
-                        <Question
-                        questionData={question}
-                        onAnswerSelected={onAnswerSelected}
-                        answerData={{rightAnswer:question.correctAnswer, wrongAnswer:correction[index]}}
-                        />
+                        <div className="answer-box">
+                            <Question
+                            questionData={question}
+                            onAnswerSelected={onAnswerSelected}
+                            answerData={{rightAnswer:question.correctAnswer, wrongAnswer:correction[index]}}
+                            />
+                        </div>
                     ))}
                     
                 </div>
