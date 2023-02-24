@@ -16,3 +16,13 @@
     border: 1px solid #800080;
 }
 
+.right_answer {
+    background: #adff96;
+    border: 1px solid #213600;
+}
+
+.wrong_answer {
+    background: #f6b0b0;
+    border: 1px solid #4b0101;
+}
+
