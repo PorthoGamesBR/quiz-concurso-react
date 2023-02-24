@@ -17,9 +17,16 @@ const Quiz = () => {
   
     const { questions, topic, perQuestionScore, totalQuestions } = quiz
     const { correctAnswer } = questions[activeQuestion]
+
+    const [correction, setCorrection] = useState(Array.apply(0, Array(totalQuestions)))
   
     const onClickNext = () => {
       setSelectedAnswerIndex(null)
+
+      const newCorrection = correction
+      newCorrection[activeQuestion] = questions[activeQuestion].choices[selectedAnswerIndex]
+      setCorrection(newCorrection)
+
       setResult((prev) =>
         selectedAnswer
           ? {
@@ -94,11 +101,14 @@ const Quiz = () => {
             : (
                 <div>
                     <h1>Correction</h1>
-                    <Question
-                questionData={questions[0]}
-                onAnswerSelected={onAnswerSelected}
-                answerData={{rightAnswer:'stringify()', wrongAnswer:'parse()'}}
-                />
+                    {questions.map((question, index) => (
+                        <Question
+                        questionData={question}
+                        onAnswerSelected={onAnswerSelected}
+                        answerData={{rightAnswer:question.correctAnswer, wrongAnswer:correction[index]}}
+                        />
+                    ))}
+                    
                 </div>
             )}
 
