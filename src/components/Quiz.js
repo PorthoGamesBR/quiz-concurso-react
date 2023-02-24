@@ -1,11 +1,13 @@
 import quiz from "../data/Quizdata"
 import { useState } from "react"
 import './quiz.css'
+import Question from "./questions/Question"
 
 const Quiz = () => {
     const [activeQuestion, setActiveQuestion] = useState(0)
     const [selectedAnswer, setSelectedAnswer] = useState('')
     const [showResult, setShowResult] = useState(false)
+    const [showCorrection, setShowCorrection] = useState(false)
     const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null)
     const [result, setResult] = useState({
       score: 0,
@@ -13,8 +15,8 @@ const Quiz = () => {
       wrongAnswers: 0,
     })
   
-    const { questions } = quiz
-    const { question, choices, correctAnswer } = questions[activeQuestion]
+    const { questions, topic, perQuestionScore, totalQuestions } = quiz
+    const { correctAnswer } = questions[activeQuestion]
   
     const onClickNext = () => {
       setSelectedAnswerIndex(null)
@@ -22,7 +24,7 @@ const Quiz = () => {
         selectedAnswer
           ? {
               ...prev,
-              score: prev.score + 5,
+              score: prev.score + perQuestionScore,
               correctAnswers: prev.correctAnswers + 1,
             }
           : { ...prev, wrongAnswers: prev.wrongAnswers + 1 }
@@ -50,40 +52,33 @@ const Quiz = () => {
       <div className="quiz-container">
         {!showResult ? (
           <div>
+
+            <div> 
+                {topic}
+            </div>
+
             <div>
               <span className="active-question-no">
                 {addLeadingZero(activeQuestion + 1)}
               </span>
               <span className="total-question">
-                /{addLeadingZero(questions.length)}
+                /{addLeadingZero(totalQuestions)}
               </span>
             </div>
-            <h2>{question}</h2>
-            <ul>
-              {choices.map((answer, index) => (
-                <li
-                  onClick={() => onAnswerSelected(answer, index)}
-                  key={answer}
-                  className={
-                    selectedAnswerIndex === index ? 'selected-answer' : null
-                  }>
-                  {answer}
-                </li>
-              ))}
-            </ul>
-            <div className="flex-right">
-              <button
-                onClick={onClickNext}
-                disabled={selectedAnswerIndex === null}>
-                {activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-              </button>
-            </div>
+
+            <Question
+            questionData={questions[activeQuestion]}
+            onAnswerSelected={onAnswerSelected}
+            selectedAnswerIndex={selectedAnswerIndex}
+            onClickNext={onClickNext}
+            />
+
           </div>
         ) : (
           <div className="result">
             <h3>Result</h3>
             <p>
-              Total Question: <span>{questions.length}</span>
+              Total Question: <span>{totalQuestions}</span>
             </p>
             <p>
               Total Score:<span> {result.score}</span>
@@ -94,6 +89,14 @@ const Quiz = () => {
             <p>
               Wrong Answers:<span> {result.wrongAnswers}</span>
             </p>
+                        
+            {!showCorrection ? <button onClick={() => setShowCorrection(!showCorrection)}>Show Correction</button> 
+            : (
+                <div>
+                    <h1>Correction</h1>
+                </div>
+            )}
+
           </div>
         )}
       </div>

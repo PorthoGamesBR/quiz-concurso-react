@@ -2,7 +2,7 @@ const quiz = {
     topic: 'Javascript',
     level: 'Beginner',
     totalQuestions: 4,
-    perQuestionScore: 5,
+    perQuestionScore: 1,
     questions: [
       {
         question:

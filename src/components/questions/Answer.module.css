@@ -1,0 +1,18 @@
+.answer_button {
+    text-decoration: none;
+    list-style: none;
+    color: #2d264b;
+    font-size: 16px;
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 16px;
+    padding: 11px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.selected_answer {
+    background: #ffd6ff;
+    border: 1px solid #800080;
+}
+
